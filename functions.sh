@@ -62,3 +62,10 @@ function build_docker_image() {
   # Remove the buildx builder instance
   docker buildx rm mybuilder
 }
+
+function install_crane() {
+  # install crane
+  curl -LO https://github.com/google/go-containerregistry/releases/download/v0.11.0/go-containerregistry_Linux_x86_64.tar.gz
+  tar zxvf go-containerregistry_Linux_x86_64.tar.gz
+  chmod +x crane
+}
