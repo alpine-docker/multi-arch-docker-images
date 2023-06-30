@@ -50,11 +50,10 @@ function build_docker_image() {
   
   if [[ "$CIRCLE_BRANCH" == "master" ]]; then 
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    docker buildx build \
+    docker buildx build --progress=plain --push \
      --platform "${platform}" \
      --build-arg "${build_arg}" \
      --no-cache \
-     --push \
      --tag "${image_name}:${tag}" \
      --tag "${image_name}:latest" \
      .
