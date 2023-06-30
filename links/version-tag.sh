@@ -3,11 +3,11 @@
 curl -H "Cache-Control: no-cache" -sL "https://raw.githubusercontent.com/alpine-docker/multi-arch-libs/stable/functions.sh" -o functions.sh
 source functions.sh
 
-image="alpine/lynx"
+image="alpine/links"
 
-version=$(docker run -ti --rm ${image} -version |awk '$1=$1' |awk '/Lynx Version/{print $3}')
-# 2.8.9rel.1
-version=$(echo $version |sed 's/rel.*//')
+# 2.29
+version=$(docker run -ti --rm ${image} -version |awk '/Links/{print $2}'|sed 's/\r//g')
+echo $version
 
 install_crane
 ./crane copy ${image} ${image}:${version}
