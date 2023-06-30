@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -sL "https://raw.githubusercontent.com/alpine-docker/multi-arch-libs/stable/functions.sh" -o functions.sh
+curl -H "Cache-Control: no-cache" -sL "https://raw.githubusercontent.com/alpine-docker/multi-arch-libs/stable/functions.sh" -o functions.sh
 source functions.sh
 
 image="alpine/lynx"

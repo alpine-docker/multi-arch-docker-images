@@ -64,8 +64,14 @@ function build_docker_image() {
 }
 
 function install_crane() {
+  case `uname -s` in \
+      Darwin) file="go-containerregistry_Darwin_x86_64.tar.gz"; ;; \
+      Linux) file="go-containerregistry_Linux_x86_64.tar.gz"; ;; \
+      *) echo "un-supported arch, exit ..."; exit 1; ;; \
+  esac
+
   # install crane
-  curl -LO https://github.com/google/go-containerregistry/releases/download/v0.11.0/go-containerregistry_Linux_x86_64.tar.gz
-  tar zxvf go-containerregistry_Linux_x86_64.tar.gz
+  curl -LO https://github.com/google/go-containerregistry/releases/download/v0.11.0/${file}
+  tar zxvf ${file}
   chmod +x crane
 }
