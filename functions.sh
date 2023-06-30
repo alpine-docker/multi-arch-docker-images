@@ -41,9 +41,9 @@ function get_image_tags() {
 
 function build_docker_image() {
   local tag="${1}"
-  local build_arg="${2}"
-  local image_name="${3}"
-  local platform="${4}"  
+  local image_name="${2}"
+  local platform="${3}"
+  local build_arg="${4}"
 
   # Create a new buildx builder instance
   docker buildx create --name mybuilder --use
