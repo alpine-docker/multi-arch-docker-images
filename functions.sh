@@ -48,7 +48,7 @@ function build_docker_image() {
   # Create a new buildx builder instance
   docker buildx create --name mybuilder --use
   
-  if [[ "$CIRCLE_BRANCH" == "master" ]]; then 
+  if [[ "$CIRCLE_BRANCH" == "master" || "$CIRCLE_BRANCH" == "main" ]]; then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     docker buildx build --progress=plain --push \
      --platform "${platform}" \
