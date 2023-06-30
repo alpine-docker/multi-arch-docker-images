@@ -5,12 +5,17 @@
 # DOCKER_USERNAME
 # DOCKER_PASSWORD
 
-# usage
 set -e
 
+# usage
 Usage() {
   echo "$0 <image_name>"
 }
+
+if [ $# -eq 0 ]; then
+  Usage
+  exit 1
+fi
 
 pushd $1
 image="alpine/$1"
@@ -22,6 +27,5 @@ source functions.sh
 tag="latest"
 build_arg="VERSION=${tag}"
 
-echo "build image for ${tag}"
-docker buildx rm -f mybuilder-${image} || echo "ok"
+echo "Building image for tag: ${tag}"
 build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"

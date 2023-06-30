@@ -46,7 +46,8 @@ function build_docker_image() {
   local build_arg="${4}"
 
   # Create a new buildx builder instance
-  docker buildx create --name mybuilder-${image} --use
+  builder_name=$(uuidgen)
+  docker buildx create --use --name "mybuilder-${builder_name}"
   
   if [[ "$CIRCLE_BRANCH" == "master" || "$CIRCLE_BRANCH" == "main" ]]; then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -59,8 +60,8 @@ function build_docker_image() {
      .
   fi
   
-  # Remove the buildx builder instance
-  docker buildx rm mybuilder-${image}
+  # Clean up the builder instance
+  docker buildx rm "${builder_name}"
 }
 
 function install_crane() {
