@@ -46,7 +46,7 @@ function build_docker_image() {
   local build_arg="${4}"
 
   # Create a new buildx builder instance
-  docker buildx create --name mybuilder --use
+  docker buildx create --name mybuilder-${image} --use
   
   if [[ "$CIRCLE_BRANCH" == "master" || "$CIRCLE_BRANCH" == "main" ]]; then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -60,7 +60,7 @@ function build_docker_image() {
   fi
   
   # Remove the buildx builder instance
-  docker buildx rm mybuilder
+  docker buildx rm mybuilder-${image}
 }
 
 function install_crane() {
@@ -71,7 +71,7 @@ function install_crane() {
   esac
 
   # install crane
-  curl -LO https://github.com/google/go-containerregistry/releases/download/v0.11.0/${file}
-  tar zxvf ${file}
+  curl -L https://github.com/google/go-containerregistry/releases/download/v0.11.0/${file} |tar zx -C /tmp
+  mv /tmp/crane .
   chmod +x crane
 }
