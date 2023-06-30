@@ -4,6 +4,16 @@
 * small image size on alpine
 * image tag is ansible core version
 
+### source of Dockerfile
+
+https://github.com/alpine-docker/multi-arch-libs/blob/master/ansible/Dockerfile
+
+### Daily CI build logs
+N/A
+
+### Docker image tags
+https://hub.docker.com/repository/docker/alpine/ansible/tags
+
 ### Usage
 
 ```
