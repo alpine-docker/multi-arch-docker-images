@@ -61,7 +61,7 @@ function build_docker_image() {
   fi
   
   # Clean up the builder instance
-  docker buildx rm "${builder_name}"
+  docker buildx rm "mybuilder-${builder_name}"
 }
 
 function install_crane() {
