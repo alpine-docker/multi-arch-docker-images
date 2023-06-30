@@ -23,4 +23,5 @@ tag="latest"
 build_arg="VERSION=${tag}"
 
 echo "build image for ${tag}"
+docker buildx rm -f mybuilder || echo "ok"
 build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
