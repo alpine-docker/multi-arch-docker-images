@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/curl"
 
 # 8.1.2
-version=$(docker run -ti --rm demo curl --version |awk '$1=$1'|awk '/curl/ {print $2}')
+version=$(docker run -ti --rm ${image} curl --version |awk '$1=$1'|awk '/curl/ {print $2}')
 
 install_crane
 ./crane copy ${image} ${image}:${version}
