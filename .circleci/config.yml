@@ -39,7 +39,7 @@ jobs:
           # versioning the new images
           for app in ${APPLICATIONS} trivy
           do
-            bash -c "pushd ${app}; ./version_tag.sh; popd"
+            bash -c "pushd ${app}; ./version-tag.sh; popd"
           done
   scan:
     docker:
