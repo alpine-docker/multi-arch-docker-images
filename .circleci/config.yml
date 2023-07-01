@@ -25,7 +25,7 @@ jobs:
       - setup_remote_docker:
           version: 18.09.3
       - run: |
-          apk --no-cache --update add bash curl jq
+          apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
           for app in ${APPLICATIONS}
           do
