@@ -5,6 +5,7 @@
 # DOCKER_USERNAME
 # DOCKER_PASSWORD
 # API_TOKEN
+# applications, such as curl
 
 # Usage to set variable "CURL_OPTIONS"
 #
@@ -75,4 +76,8 @@ function install_crane() {
   curl -L https://github.com/google/go-containerregistry/releases/download/v0.11.0/${file} |tar zx -C /tmp
   mv /tmp/crane .
   chmod +x crane
+}
+
+function install_trivy() {
+  curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 }
