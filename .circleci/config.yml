@@ -27,6 +27,7 @@ jobs:
       - run: |
           apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
+          # build the application with latest tag
           for app in ${APPLICATIONS}
           do
             bash ./build.sh ${app} 
@@ -35,6 +36,11 @@ jobs:
           # trivy doesn't support all platforms
           bash ./build_trivy.sh
 
+          # versioning the new images
+          for app in ${APPLICATIONS} trivy
+          do
+            bash -c "pushd ${app}; pwd; echo ./version_tag.sh; popd"
+          done
   scan:
     docker:
       - image: alpine/trivy
