@@ -33,11 +33,14 @@ jobs:
             bash ./build.sh ${app} 
           done
 
-          # trivy doesn't support all platforms
-          bash ./build_trivy.sh
+          # some app don't support all platforms
+          for app in trivy mongosh
+          do
+            bash ./build_${app}.sh
+          done
 
           # versioning the new images
-          for app in ${APPLICATIONS} trivy
+          for app in ${APPLICATIONS} trivy mongosh
           do
             bash -c "pushd ${app}; ./version-tag.sh; popd"
           done
@@ -45,7 +48,7 @@ jobs:
     docker:
       - image: alpine/trivy
     environment:
-      APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie
+      APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie mongosh
     steps:
       - checkout
       - run: |
