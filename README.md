@@ -14,7 +14,7 @@ libs sharing for mutli-arch docker images
 * [socat](https://linux.die.net/man/1/socat) - a multipurpose relay tool for Linux
 * [httpie](https://httpie.io/) - make CLI interaction with web services as human-friendly as possible
 * [mongosh](https://www.mongodb.com/) - The Mongo Command-Line Client
-* [ansible]https://www.ansible.com/) - an open-source automation tool that allows you to automate tasks, configuration management, and application deployment.
+* [ansible](https://www.ansible.com/) - an open-source automation tool that allows you to automate tasks, configuration management, and application deployment.
 
 ### Image details
 
