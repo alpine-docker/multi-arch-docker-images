@@ -19,7 +19,7 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      APPLICATIONS: links lynx mysql psql curl semver socat
+      APPLICATIONS: links lynx mysql psql curl semver socat httpie
     steps:
       - checkout
       - setup_remote_docker:
@@ -45,7 +45,7 @@ jobs:
     docker:
       - image: alpine/trivy
     environment:
-      APPLICATIONS: links lynx mysql psql curl trivy semver socat
+      APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie
     steps:
       - checkout
       - run: |
