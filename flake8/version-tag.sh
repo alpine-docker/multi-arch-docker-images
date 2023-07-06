@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/flake8"
 
 # 15.1
-version=$(docker run -ti --rm ${image} --version|awk '$1=$1' | awk '/Python/{print $1}')
+version=$(docker run -ti --rm ${image} --version|head -1|awk '$1=$1' | awk '/Python/{print $1}')
 
 install_crane
 ./crane copy ${image} ${image}:${version}
