@@ -19,7 +19,7 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      APPLICATIONS: links lynx mysql psql curl semver socat httpie ansible flake8
+      APPLICATIONS: links lynx mysql psql curl semver socat httpie ansible flake8 openssl
     steps:
       - checkout
       - setup_remote_docker:
