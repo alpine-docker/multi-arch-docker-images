@@ -34,10 +34,10 @@ jobs:
           done
 
           # some app don't support all platforms
-          for app in trivy mongosh
-          do
-            bash ./build_${app}.sh
-          done
+          # for app in trivy mongosh
+          # do
+          #   bash ./build_${app}.sh
+          # done
 
           # versioning the new images
           for app in ${APPLICATIONS} trivy mongosh
