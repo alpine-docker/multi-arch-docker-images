@@ -1,6 +1,12 @@
-# multi-arch-libs
+# multi-arch-docker-images
 
-libs sharing for mutli-arch docker images
+### Why we need it
+
+* Mostly it is used during CI/CD (continuous integration and continuous delivery) or as part of an automated build/deployment
+* mutli-arch images supported, so you can easily run it on most OSs with same `docker pull/run` commands
+
+![image](https://github.com/alpine-docker/multi-arch-docker-images/assets/8954908/18574160-0e30-4570-8fec-3dca2703f582)
+
 
 ### supported images
 
@@ -37,9 +43,6 @@ libs sharing for mutli-arch docker images
 
 There are simple usages in its application folders, but recommend to get help from application's offical documents.
 
-### Why we need it
-
-Mostly it is used during CI/CD (continuous integration and continuous delivery) or as part of an automated build/deployment
 
 ### The Processes to build these images
 
@@ -47,4 +50,4 @@ Mostly it is used during CI/CD (continuous integration and continuous delivery) 
 * Build and push the images with latest version
 * Run the latest image locally and get the application version
 * Tag the image with the version, from previous step
-* push the image with version via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
+* push the image with versions via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
