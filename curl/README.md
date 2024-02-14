@@ -6,7 +6,7 @@ Alpine-based image with just curl
 
 NOTES: the original upstream https://github.com/appropriate/docker-curl is in read-only (archived statue), its images used base image of `alpine:3.7`, and are 4 years old now, vulnerabilities in its image, which is risk to use it.
 
-This repo will manage with latest alpine version, but must pass the trivy scan.
+This repo will manage with latest alpine version, and passed trivy scan.
 
 ## Usage
 
