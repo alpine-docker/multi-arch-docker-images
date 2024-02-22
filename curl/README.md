@@ -26,7 +26,7 @@ curl -fsSL https://www.google.com/
 * with `kubectl run`
 ```
 # Each execution typically takes approximately 5 to 10 seconds due to the need to pull the image and create the pod.
-kubectl run curl --restart=Never --stdin --rm -it  --image=alpine/curl -- -fsSL https://www.google.com/
+kubectl run curl  --rm -it  --image=alpine/curl -- -fsSL https://www.google.com/
 
 # if you want to test the service within kubernetes cluster, 
 $ kubectl get service
@@ -34,11 +34,18 @@ $ kubectl get service
 # suppose, "productpage" is the service name, and "9080" is the service port
 # productpage   ClusterIP   10.99.117.108    <none>        9080/TCP   123m
 
-kubectl run curl --restart=Never --stdin --rm -it  --image=alpine/curl -- -sS productpage.default:9080/index.html
+kubectl run curl --rm -it  --image=alpine/curl -- -sS productpage.default:9080/index.html
 ```
+
+There is a rare case, that your kubernetes has [istio auto injection](https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#controlling-the-injection-policy) (or similar sidecar solution) set as true,  [pod or containers start with network issue if istio-proxy (the sidecar) is not ready](https://istio.io/latest/docs/ops/common-problems/injection/#:~:text=the%20injected%20pods.-,Pod%20or%20containers%20start%20with%20network%20issues%20if%20istio%2Dproxy,sidecar%20container%20is%20not%20ready.). So we need add extra option to reject that setting. 
+
+```
+kubectl run curl --rm -it --overrides='{ "apiVersion": "v1", "metadata": { "labels": { "sidecar.istio.io/inject": "false" } } }' --image=alpine/curl --  -sS productpage.default:9080/productpage
+```
+
 or use it as alias command
 ```
-alias kubecurl="kubectl run curl --restart=Never --stdin --rm -it  --image=alpine/curl --"
+alias kubecurl="kubectl run curl  --rm -it  --image=alpine/curl --"
 
 kubecurl -fsSL https://www.google.com/
 ```
