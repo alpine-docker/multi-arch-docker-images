@@ -53,6 +53,7 @@ function build_docker_image() {
   if [[ "$CIRCLE_BRANCH" == "master" || "$CIRCLE_BRANCH" == "main" ]]; then
     #docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     docker buildx build --progress=plain --push \
+     --sbom=true \
      --platform "${platform}" \
      --build-arg "${build_arg}" \
      --no-cache \
