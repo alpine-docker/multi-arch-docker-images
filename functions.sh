@@ -54,6 +54,7 @@ function build_docker_image() {
     #docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     docker buildx build --progress=plain --push \
      --sbom=true \
+     --provenance=mode=max \
      --platform "${platform}" \
      --build-arg "${build_arg}" \
      --no-cache \
