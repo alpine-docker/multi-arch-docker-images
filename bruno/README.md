@@ -16,11 +16,11 @@ https://github.com/alpine-docker/multi-arch-docker-images/tree/master/bruno
 
 Docker images are built together:
 
-https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-libs
+https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images
 
 Image list:
 
-https://github.com/alpine-docker/multi-arch-libs/tree/master#image-details
+https://github.com/alpine-docker/multi-arch-docker-images/tree/master#image-details
 
 ### Docker image tags
 

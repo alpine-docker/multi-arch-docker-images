@@ -9,25 +9,26 @@ Auto-trigger docker build for [httpie](https://github.com/jakubroztocil/httpie) 
 [![DockerHub Badge](http://dockeri.co/image/alpine/httpie)](https://hub.docker.com/r/alpine/httpie/)
 
 ### Additional notes on multi-arch images
+
 This feature was added on June 25th, 2023.
 
-* Versions v3.2.2 and above are built with multi-arch support (`--platform linux/amd64, linux/arm/v7, linux/arm64/v8, linux/arm/v6, linux/ppc64le, linux/s390x`).
-* I only provide support for the `linux/amd64` platform since I don't have an environment to test other platforms. If you encounter any issues with other architectures, please submit a pull request to address them.
-* There will be no difference when using the docker pull and docker run commands with other architectures; you can use them as you normally would. For instance, if you need to pull an image for the ARM architecture (such as the new Mac M1 chip), you can run `docker pull alpine/httpie:3.2.2` to directly obtain the image.
+- Versions v3.2.2 and above are built with multi-arch support (`--platform linux/amd64, linux/arm/v7, linux/arm64/v8, linux/arm/v6, linux/ppc64le, linux/s390x`).
+- I only provide support for the `linux/amd64` platform since I don't have an environment to test other platforms. If you encounter any issues with other architectures, please submit a pull request to address them.
+- There will be no difference when using the docker pull and docker run commands with other architectures; you can use them as you normally would. For instance, if you need to pull an image for the ARM architecture (such as the new Mac M1 chip), you can run `docker pull alpine/httpie:3.2.2` to directly obtain the image.
 
 ### Github Repo
 
-https://github.com/alpine-docker/multi-arch-libs/tree/master/httpie
+https://github.com/alpine-docker/multi-arch-docker-images/tree/master/httpie
 
 ### Daily CI build logs
 
 Docker images are built together:
 
-https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-libs
+https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images
 
 Image list:
 
-https://github.com/alpine-docker/multi-arch-libs/tree/master#image-details
+https://github.com/alpine-docker/multi-arch-docker-images/tree/master#image-details
 
 ### Docker image tags
 
@@ -74,7 +75,7 @@ $ alias https >> ~/.bashrc
 
 Running HTTPie is as simple as invoking it like this:
 
-> *From [the official examples](https://github.com/jakubroztocil/httpie#examples):*
+> _From [the official examples](https://github.com/jakubroztocil/httpie#examples):_
 
 Hello World:
 
@@ -83,7 +84,6 @@ $ https httpie.io/hello
 ```
 
 Custom [HTTP method](https://httpie.io/docs#http-method), [HTTP headers](https://httpie.io/docs#http-headers) and [JSON](https://httpie.io/docs#json) data:
-
 
 ```bash
 $ http PUT example.org X-API-Token:123 name=John
@@ -121,8 +121,8 @@ $ http --help
 
 ### The Processes to build these images
 
-* Enable CI cronjob on this repo to run build regularly on master branch (Weekly)
-* Build and push the images with latest version
-* Run the latest image locally and get the application version
-* Tag the image with the version, from previous step
-* push the image with version via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
+- Enable CI cronjob on this repo to run build regularly on master branch (Weekly)
+- Build and push the images with latest version
+- Run the latest image locally and get the application version
+- Tag the image with the version, from previous step
+- push the image with version via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)

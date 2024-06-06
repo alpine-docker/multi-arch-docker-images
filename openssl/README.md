@@ -6,11 +6,11 @@ A useful simple openssl container running in alpine Linux
 
 ### Github Repo
 
-https://github.com/alpine-docker/multi-arch-libs/blob/master/openssl
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/openssl
 
 ### CI build logs
 
-https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-libs
+https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images
 
 ### Docker image tags
 
@@ -23,5 +23,3 @@ https://hub.docker.com/r/alpine/openssl/tags/
 ### Optional usage 1:
 
     alias openssl="docker run -ti --rm -v $(pwd):/apps -w /apps alpine/openssl"
-    
-

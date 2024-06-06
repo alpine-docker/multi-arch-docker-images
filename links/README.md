@@ -1,6 +1,6 @@
 ### source of `Dockerfile`
 
-https://github.com/alpine-docker/multi-arch-libs/blob/master/links/Dockerfile
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/links/Dockerfile
 
 ### Daily CI build logs
 
@@ -9,7 +9,6 @@ N/A
 ### Docker image tags
 
 https://hub.docker.com/repository/docker/alpine/links/tags
-
 
 ### quick start
 

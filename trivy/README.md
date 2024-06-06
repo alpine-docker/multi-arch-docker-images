@@ -2,7 +2,7 @@ trivy — Find vulnerabilities, misconfigurations, secrets, SBOM in containers, 
 
 ### source of `Dockerfile`
 
-https://github.com/alpine-docker/multi-arch-libs/blob/master/trivy/Dockerfile
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/trivy/Dockerfile
 
 ### Daily CI build logs
 
@@ -11,7 +11,6 @@ N/A
 ### Docker image tags
 
 https://hub.docker.com/repository/docker/alpine/trivy/tags
-
 
 ### quick start
 

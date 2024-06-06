@@ -14,17 +14,17 @@ Weekly auto-trigger docker build for [socat](https://pkgs.alpinelinux.org/packag
 
 ### Repo:
 
-https://github.com/alpine-docker/multi-arch-libs/tree/master/socat
+https://github.com/alpine-docker/multi-arch-docker-images/tree/master/socat
 
 ### scheduled build logs:
 
 Docker images are built together:
 
-https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-libs
+https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images
 
-Image list: 
+Image list:
 
-https://github.com/alpine-docker/multi-arch-libs/tree/master#image-details
+https://github.com/alpine-docker/multi-arch-docker-images/tree/master#image-details
 
 ### Docker image tags:
 
@@ -37,6 +37,7 @@ The Docker for Mac native macOS application provides use of docker engine withou
 ### Example
 
 To publish the unix-socket (**/var/run/docker.sock**) to the Docker daemon as port **2376** on the local host (127.0.0.1):
+
 ```
 $ docker pull alpine/socat
 $ docker run -d --restart=always \
@@ -46,7 +47,7 @@ $ docker run -d --restart=always \
     tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 ```
 
-***WARNING***: The Docker API is insecure by default. Please remember to bind the TCP socket to the `localhost` interface otherwise the Docker API will be bound to all interfaces.
+**_WARNING_**: The Docker API is insecure by default. Please remember to bind the TCP socket to the `localhost` interface otherwise the Docker API will be bound to all interfaces.
 
 ## Use Case: Publish a port on an existing container
 
@@ -57,6 +58,7 @@ This image can be used to work-around these limitations by forwarding ports and 
 ### Example
 
 To publish port **1234** on container **example-container** as port **4321** on the docker host:
+
 ```
 $ docker pull alpine/socat
 $ docker run \
@@ -65,9 +67,10 @@ $ docker run \
     alpine/socat \
     tcp-listen:1234,fork,reuseaddr tcp-connect:target:1234
 ```
-* To run the container in the background insert ```--detach``` after ```docker run```.
-* To automatically start the container on restart insert ```--restart always``` after ```docker run```.
-* To automatically start the container unless it has been stopped explicitly insert ```--restart unless-stopped``` after ```docker run```.
+
+- To run the container in the background insert `--detach` after `docker run`.
+- To automatically start the container on restart insert `--restart always` after `docker run`.
+- To automatically start the container unless it has been stopped explicitly insert `--restart unless-stopped` after `docker run`.
 
 ## Use Case: Use nginx-proxy to access a local Cockpit instance
 
@@ -76,6 +79,7 @@ Socat docker image by defintion does not use any EXPOSE inside Dockerfile. This 
 Using expose will allow nginx-proxy to properly detect and communicate with socat instance without opening the port on host like ports option does.
 
 ### Example
+
 In the following example, socat will be used to relay a host Cockpit instance to the nginx-proxy image, allowing to rely on proxy ports and optional Let's Encrypt support.
 
 ```
@@ -101,8 +105,8 @@ In the following example, socat will be used to relay a host Cockpit instance to
 
 # The Processes to build this image
 
-* Enable CI cronjob on this repo to run build regularly on master branch (Weekly)
-* Build and push the images with latest version
-* Run the latest image locally and get the application version
-* Tag the image with the version, from previous step
-* push the image with version via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
+- Enable CI cronjob on this repo to run build regularly on master branch (Weekly)
+- Build and push the images with latest version
+- Run the latest image locally and get the application version
+- Tag the image with the version, from previous step
+- push the image with version via tool called [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md)
