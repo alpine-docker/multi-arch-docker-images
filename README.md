@@ -21,6 +21,8 @@
 * [httpie](https://httpie.io/) - make CLI interaction with web services as human-friendly as possible
 * [mongosh](https://www.mongodb.com/) - The Mongo Command-Line Client
 * [ansible](https://www.ansible.com/) - an open-source automation tool that allows you to automate tasks, configuration management, and application deployment.
+* [sqlite](https://sqlite.org/) - a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine
+* [bruno](https://www.usebruno.com/) - Git-Friendly Opensource API client with collections version control
 
 ### Image details
 
