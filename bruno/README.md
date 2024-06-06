@@ -29,8 +29,18 @@ https://hub.docker.com/r/alpine/bruno/tags/
 ### Usage
 
 ```bash
-# Assume your collections are in the current folder named 'collections' and the environment is DEV.
-$ docker run -ti --rm -v "$(pwd)/collections":/apps -w /apps alpine/bruno run --env=DEV
+# Assume your collections are in the current folder named 'collections' and the environment is dev.
+# $ find collections
+# collections
+# collections/environments
+# collections/environments/dev.bru
+# collections/environments/prod.bru
+# collections/host as variable.bru
+# collections/bruno.json
+# collections/google.bru
+# collections/{JSON} Placeholder.bru
+
+$ docker run -ti --rm -v "$(pwd)/collections":/apps -w /apps alpine/bruno run --env=dev
 
 Running Folder Recursively
 
@@ -39,6 +49,19 @@ google.com (200 OK) - 239 ms
 variables (200 OK) - 670 ms
 
 Requests:    3 passed, 3 total
+Tests:       0 passed, 0 total
+Assertions:  0 passed, 0 total
+
+# bruno run without environment nominated
+$ docker run -ti --rm -v "$(pwd)/collections":/apps -w /apps alpine/bruno run
+
+Running Folder Recursively
+
+google (200 OK) - 417 ms
+{JSON} Placeholder (200 OK) - 71 ms
+host as variable (getaddrinfo ENOTFOUND {{host}})
+
+Requests:    2 passed, 1 failed, 3 total
 Tests:       0 passed, 0 total
 Assertions:  0 passed, 0 total
 ```
