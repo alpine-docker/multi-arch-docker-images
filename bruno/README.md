@@ -1,8 +1,8 @@
-# Bruno
+# Bruno - Git-Friendly Opensource API client with collections version control
 
 [If enjoy, please consider buying me a coffee.](https://www.buymeacoffee.com/ozbillwang)
 
-Bruno cli running in docker alpine (Node+Alpine+Bruno)
+Bruno cli running in docker alpine (Node+Alpine+Bruno cli)
 
 Auto-trigger docker build for [bruno cli](https://github.com/usebruno/bruno) when new release is announced
 
