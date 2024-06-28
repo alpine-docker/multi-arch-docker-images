@@ -55,7 +55,11 @@ jobs:
           for app in ${APPLICATIONS}
           do
             echo "Scan image alpine/${app} ..."
-            trivy image -s "HIGH,CRITICAL" alpine/${app}
+            #trivy image -s "HIGH,CRITICAL" alpine/${app}
+            trivy image --format table --exit-code 1 \
+               --ignore-unfixed --vuln-type os,library \
+               --scanners vuln --severity CRITICAL,HIGH \
+               --timeout 10m0s alpine/${app}
             echo "==== End of Scan ===="
           done
 
