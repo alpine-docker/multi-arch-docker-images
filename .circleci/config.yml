@@ -19,7 +19,7 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno asma
+      APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno
     steps:
       - checkout
       - setup_remote_docker:
@@ -31,6 +31,12 @@ jobs:
           for app in ${APPLICATIONS}
           do
             bash ./build.sh ${app} 
+          done
+
+          some app don't support all platforms
+          for app in asma
+          do
+            bash ./build_${app}.sh
           done
 
           # some app don't support all platforms
