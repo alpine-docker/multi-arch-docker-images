@@ -1,1 +1,1 @@
-./build.sh trivy "linux/amd64,linux/arm64"
+./build.sh asma "linux/amd64,linux/arm64"
