@@ -34,12 +34,8 @@ jobs:
             bash ./build.sh ${app} 
           done
 
-          # some app don't support all platforms
-          for app in asma
-          do
-            echo "### build ${app} ... ###"
-            bash ./build_${app}.sh
-          done
+          echo "### build asma ... ###"
+          bash ./build_asma.sh
 
           # some app don't support all platforms
           # for app in trivy mongosh
