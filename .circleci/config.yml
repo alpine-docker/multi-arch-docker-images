@@ -35,7 +35,7 @@ jobs:
           done
 
           echo "### build asma ... ###"
-          bash ./build_asma.sh
+          bash ./build_asma.sh asma
 
           # some app don't support all platforms
           # for app in trivy mongosh
