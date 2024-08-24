@@ -46,6 +46,9 @@ function build_docker_image() {
   local platform="${3}"
   local build_arg="${4}"
 
+  minor=${tag%.*}
+  major=${tag%%.*}
+
   # Create a new buildx builder instance
   builder_name=$(uuidgen)
   docker buildx create --use --name "mybuilder-${builder_name}"
@@ -58,9 +61,11 @@ function build_docker_image() {
      --no-cache \
      --tag "${image_name}:${tag}" \
      --tag "${image_name}:latest" \
+     --tag "${image_name}:${minor}" \
+     --tag "${image_name}:${major}" \
      .
   fi
-  
+
   # Clean up the builder instance
   docker buildx rm "mybuilder-${builder_name}"
 }
