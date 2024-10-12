@@ -25,19 +25,19 @@ function install_jq() {
 }
 
 function get_latest_release() {
-  curl "$CURL_OPTIONS" "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name | ltrimstr("v")'
+  eval curl "$CURL_OPTIONS" "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name | ltrimstr("v")'
 }
 
 function get_published_date() {
-  curl "$CURL_OPTIONS" -s "https://api.github.com/repos/$1/releases/latest" | jq -r '.published_at'
+  eval curl "$CURL_OPTIONS" -s "https://api.github.com/repos/$1/releases/latest" | jq -r '.published_at'
 }
 
 function get_image_published_date() {
-  curl "$CURL_OPTIONS" -s "https://hub.docker.com/v2/repositories/$1/tags/" | jq -r '.results[] | select(.name == "latest") | .last_updated'
+  eval curl "$CURL_OPTIONS" -s "https://hub.docker.com/v2/repositories/$1/tags/" | jq -r '.results[] | select(.name == "latest") | .last_updated'
 }
 
 function get_image_tags() {
-  curl "$CURL_OPTIONS" -s "https://hub.docker.com/v2/repositories/$1/tags/" | jq -r '.results[].name'
+  eval curl "$CURL_OPTIONS" -s "https://hub.docker.com/v2/repositories/$1/tags/" | jq -r '.results[].name'
 }
 
 function build_docker_image() {
