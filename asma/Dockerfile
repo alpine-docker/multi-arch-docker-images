@@ -23,14 +23,32 @@ RUN cargo build --release
 FROM alpine:latest
 
 # Install necessary runtime dependencies
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates bash acl
 
 # Set the working directory inside the container
 WORKDIR /usr/local/bin
 
 # Copy the binary from the builder stage
-COPY --from=builder /usr/src/aws-secretsmanager-agent/target/release/aws_secretsmanager_agent .
+COPY --from=builder /usr/src/aws-secretsmanager-agent/target/release/aws_secretsmanager_agent secrets-manager-agent
+COPY --from=builder /usr/src/aws-secretsmanager-agent/aws_secretsmanager_agent/configuration/awssmaseedtoken .
 
-# Run the binary by default when the container starts
-CMD ["./aws_secretsmanager_agent"]
+# Create a group and a user
+RUN addgroup -S awssmatokenreader && adduser -S awssmauser -G awssmatokenreader
 
+# Change the ownership of the binary to the created user and group
+RUN chown awssmauser:awssmatokenreader /usr/local/bin/secrets-manager-agent
+
+# Create the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chgrp -R awssmatokenreader /var/run && chmod -R g+rwx /var/run
+RUN chgrp -R awssmatokenreader /run && chmod -R g+rwx /run
+
+# Switch to the created user
+USER awssmauser
+
+# Set environment variable
+ENV AWS_TOKEN=file:///var/run/awssmatoken
+
+# Run the entrypoint script by default when the container starts
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
