@@ -1,6 +1,6 @@
 FROM python:3-alpine
 
-RUN apk add --update --no-cache ansible bash openssh
+RUN apk add --update --no-cache ansible bash openssh sshpass
 
 ENTRYPOINT []
 CMD ["ansible", "--help"]
