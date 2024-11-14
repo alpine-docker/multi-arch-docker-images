@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add --update --no-cache mysql-client mariadb-connector-c-dev
+RUN apk add --update --no-cache mysql-client mariadb-connector-c
 
 ENTRYPOINT ["/usr/bin/mysql"]
 CMD ["--help"]
