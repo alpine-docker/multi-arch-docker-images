@@ -48,7 +48,7 @@ jobs:
           esac
 
           # Versioning the new images
-          bash -c "pushd ${app}; bash -e ./version-tag.sh; popd"
+          bash -c "pushd ${app}; bash -euo pipefail ./version-tag.sh; popd"
 
   scan:
     docker:
