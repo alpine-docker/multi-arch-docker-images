@@ -33,16 +33,16 @@ jobs:
           # Build the application ${app_name} with the latest tag
           case ${app_name} in
             asma)
-              bash ./build_asma.sh asma
+              bash -x ./build_asma.sh asma
               ;;
             trivy)
-              bash ./build_${app_name}.sh
+              bash -x ./build_${app_name}.sh
               ;;
             mongosh)
-              bash ./build_${app_name}.sh
+              bash -x ./build_${app_name}.sh
               ;;
             *)
-              bash ./build.sh ${app_name}
+              bash -x ./build.sh ${app_name}
               ;;
           esac
 
@@ -198,7 +198,6 @@ reusejobs: &reusejobs
             - build_asma
 
 workflows:
-  version: 2
   build_and_scan:
     jobs:
       *reusejobs
