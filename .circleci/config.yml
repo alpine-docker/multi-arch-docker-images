@@ -34,21 +34,21 @@ jobs:
           # Build the application ${app} with the latest tag
           case ${app_name} in
             asma)
-              bash -x ./build_asma.sh asma
+              bash ./build_asma.sh asma
               ;;
             trivy)
-              bash -x ./build_${app}.sh
+              bash ./build_${app}.sh
               ;;
             mongosh)
-              bash -x ./build_${app}.sh
+              bash ./build_${app}.sh
               ;;
             *)
-              bash -x ./build.sh ${app}
+              bash ./build.sh ${app}
               ;;
           esac
 
           # Versioning the new images
-          bash -c "pushd ${app}; ./version-tag.sh; popd"
+          bash -c "pushd ${app}; bash -x ./version-tag.sh; popd"
 
   scan:
     docker:
