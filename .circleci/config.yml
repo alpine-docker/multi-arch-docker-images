@@ -36,6 +36,8 @@ jobs:
             asma)
               bash ./build_asma.sh asma
               ;;
+            semver)
+              bash ./build_${app}.sh ${app} "linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/s390x"
             trivy)
               bash ./build_${app}.sh
               ;;
@@ -304,6 +306,26 @@ reusejobs: &reusejobs
           context: Docker-Hub
           requires:
             - build_semver
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_mongosh
+          app_name: mongosh
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_mongosh
+          app_name: mongosh
+          context: Docker-Hub
+          requires:
+            - build_mongosh
           filters:
             branches:
               only:
