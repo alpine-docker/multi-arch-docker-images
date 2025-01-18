@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/mysql"
 
 # 15.1
-version=$(docker run -ti --rm ${image} --version |awk '$1=$1' |awk '/mysql/{print $3}')
+version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/mysql/{print $3}')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

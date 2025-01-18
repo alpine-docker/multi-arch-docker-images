@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/ansible"
 
 # 2.29
-version=$(docker run -ti --rm ${image} ansible --version |awk '$1=$1' |awk -F '[\]\[ ]' '/core/{print $4}')
+version=$(docker run --rm ${image} ansible --version |awk '$1=$1' |awk -F '[\]\[ ]' '/core/{print $4}')
 echo $version
 
 install_crane

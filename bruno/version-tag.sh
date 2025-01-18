@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/bruno"
 
 # 1.16.0
-version=$(docker run -ti --rm ${image} --version |awk '$1=$1' | sed 's/\r//g')
+version=$(docker run --rm ${image} --version |awk '$1=$1' | sed 's/\r//g')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

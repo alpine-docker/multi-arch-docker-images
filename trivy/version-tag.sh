@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/trivy"
 
 # 0.43.0
-version=$(docker run -ti --rm ${image} -v |awk '/Version/{print $2}' |sed 's/\r//g')
+version=$(docker run --rm ${image} -v |awk '/Version/{print $2}' |sed 's/\r//g')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

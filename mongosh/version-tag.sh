@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/mongosh"
 
 # 1.10.1
-version=$(docker run -ti --rm ${image} mongosh --version | sed 's/\r//g')
+version=$(docker run --rm ${image} mongosh --version | sed 's/\r//g')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

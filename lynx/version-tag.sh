@@ -5,7 +5,7 @@ source functions.sh
 
 image="alpine/lynx"
 
-version=$(docker run -ti --rm ${image} -version |awk '$1=$1' |awk '/Lynx Version/{print $3}')
+version=$(docker run --rm ${image} -version |awk '$1=$1' |awk '/Lynx Version/{print $3}')
 # 2.8.9rel.1
 version=$(echo $version |sed 's/rel.*//')
 

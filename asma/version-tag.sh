@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/asma"
 
 # 15.1
-#version=$(docker run -ti --rm ${image} --version |awk '$1=$1' |awk '/mysql/{print $3}')
+#version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/mysql/{print $3}')
 # currently This agent currently lacks version control, so I'm unable to run --version to retrieve the binary's version.
 version=1.0.0
 

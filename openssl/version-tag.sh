@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/openssl"
 
 # 1.1.1g
-version=$(docker run -ti --rm ${image} version |awk '$1=$1' |awk '/OpenSSL/{print $2}')
+version=$(docker run --rm ${image} version |awk '$1=$1' |awk '/OpenSSL/{print $2}')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

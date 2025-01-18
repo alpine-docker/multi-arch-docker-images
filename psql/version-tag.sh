@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/psql"
 
 # 15.1
-version=$(docker run -ti --rm ${image} --version |awk '$1=$1' |awk '/psql/{print $3}'|sed 's/\r//g')
+version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/psql/{print $3}'|sed 's/\r//g')
 
 install_crane
 ./crane copy ${image} ${image}:${version}

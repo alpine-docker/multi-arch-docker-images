@@ -6,7 +6,7 @@ source functions.sh
 image="alpine/links"
 
 # 2.29
-version=$(docker run -ti --rm ${image} -version |awk '/Links/{print $2}'|sed 's/\r//g')
+version=$(docker run --rm ${image} -version |awk '/Links/{print $2}'|sed 's/\r//g')
 echo $version
 
 install_crane
