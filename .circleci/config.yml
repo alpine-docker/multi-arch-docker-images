@@ -65,18 +65,7 @@ jobs:
              --timeout 10m0s alpine/${app_name}
           echo "==== End of Scan ===="
 
-workflows:
-  version: 2
-  build_and_scan:
-    triggers:
-      - schedule:
-          cron: "0 3 * * 6" # Scheduled run every Saturday at 3 AM UTC
-          filters:
-            branches:
-              only:
-                - master
-                - main
-    jobs:
+reusejobs: &reusejobs
       - build:
           name: build_links
           app_name: links
@@ -207,3 +196,21 @@ workflows:
           context: Docker-Hub
           requires:
             - build_asma
+
+workflows:
+  version: 2
+  build_and_scan:
+    jobs:
+      *reusejobs
+
+  nightly:
+    jobs:
+      *reusejobs
+    triggers:
+      - schedule:
+          cron: "0 3 * * 6" # Scheduled run every Saturday at 3 AM UTC
+          filters:
+            branches:
+              only:
+                - master
+                - main
