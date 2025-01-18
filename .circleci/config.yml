@@ -48,7 +48,9 @@ jobs:
           esac
 
           # Versioning the new images
-          bash -c "pushd ${app}; ./version-tag.sh; popd"
+          pushd ${app}
+          bash -x ./version-tag.sh
+          popd
 
   scan:
     docker:
@@ -73,132 +75,262 @@ reusejobs: &reusejobs
           name: build_links
           app_name: links
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_links
           app_name: links
           context: Docker-Hub
           requires:
             - build_links
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_lynx
           app_name: lynx
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_lynx
           app_name: lynx
           context: Docker-Hub
           requires:
             - build_lynx
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_mysql
           app_name: mysql
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_mysql
           app_name: mysql
           context: Docker-Hub
           requires:
             - build_mysql
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_psql
           app_name: psql
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_psql
           app_name: psql
           context: Docker-Hub
           requires:
             - build_psql
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_curl
           app_name: curl
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_curl
           app_name: curl
           context: Docker-Hub
           requires:
             - build_curl
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_socat
           app_name: socat
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_socat
           app_name: socat
           context: Docker-Hub
           requires:
             - build_socat
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_httpie
           app_name: httpie
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_httpie
           app_name: httpie
           context: Docker-Hub
           requires:
             - build_httpie
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_ansible
           app_name: ansible
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_ansible
           app_name: ansible
           context: Docker-Hub
           requires:
             - build_ansible
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_flake8
           app_name: flake8
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_flake8
           app_name: flake8
           context: Docker-Hub
           requires:
             - build_flake8
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_openssl
           app_name: openssl
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_openssl
           app_name: openssl
           context: Docker-Hub
           requires:
             - build_openssl
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_sqlite
           app_name: sqlite
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_sqlite
           app_name: sqlite
           context: Docker-Hub
           requires:
             - build_sqlite
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_bruno
           app_name: bruno
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_bruno
           app_name: bruno
           context: Docker-Hub
           requires:
             - build_bruno
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - build:
           name: build_asma
           app_name: asma
           context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - scan:
           name: scan_asma
           app_name: asma
           context: Docker-Hub
           requires:
             - build_asma
+          filters:
+            branches:
+              only:
+                - main
+                - master
 
 workflows:
   build_and_scan:
