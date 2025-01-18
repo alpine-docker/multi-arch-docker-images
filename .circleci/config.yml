@@ -19,6 +19,7 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
+      app: << parameters.app_name >>
     parameters:
       app_name:
         type: string # Accept the app name as a parameter
@@ -30,39 +31,41 @@ jobs:
           apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
 
-          # Build the application ${app_name} with the latest tag
+          # Build the application ${app} with the latest tag
           case ${app_name} in
             asma)
               bash -x ./build_asma.sh asma
               ;;
             trivy)
-              bash -x ./build_${app_name}.sh
+              bash -x ./build_${app}.sh
               ;;
             mongosh)
-              bash -x ./build_${app_name}.sh
+              bash -x ./build_${app}.sh
               ;;
             *)
-              bash -x ./build.sh ${app_name}
+              bash -x ./build.sh ${app}
               ;;
           esac
 
           # Versioning the new images
-          bash -c "pushd ${app_name}; ./version-tag.sh; popd"
+          bash -c "pushd ${app}; ./version-tag.sh; popd"
 
   scan:
     docker:
       - image: alpine/trivy:latest
+    environment:
+      app: << parameters.app_name >>
     parameters:
       app_name:
         type: string # Accept the app name as a parameter
     steps:
       - checkout
       - run: |
-          echo "Scanning image alpine/${app_name} ..."
+          echo "Scanning image alpine/${app} ..."
           trivy image --format table --exit-code 1 \
              --ignore-unfixed --vuln-type os,library \
              --scanners vuln --severity CRITICAL,HIGH \
-             --timeout 10m0s alpine/${app_name}
+             --timeout 10m0s alpine/${app}
           echo "==== End of Scan ===="
 
 reusejobs: &reusejobs
