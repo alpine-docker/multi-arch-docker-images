@@ -19,7 +19,10 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno
+      app: << parameters.app_name >>
+    parameters:
+      app_name:
+        type: string # Accept the app name as a parameter
     steps:
       - checkout
       - setup_remote_docker:
@@ -27,96 +30,319 @@ jobs:
       - run: |
           apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
-          # build the application with latest tag
-          for app in ${APPLICATIONS}
-          do
-            echo "### build ${app} ... ###"
-            bash ./build.sh ${app} 
-          done
 
-          echo "### build asma ... ###"
-          bash ./build_asma.sh asma
+          # Build the application ${app} with the latest tag
+          case ${app_name} in
+            asma)
+              bash -x ./build_asma.sh asma
+              ;;
+            trivy)
+              bash -x ./build_${app}.sh
+              ;;
+            mongosh)
+              bash -x ./build_${app}.sh
+              ;;
+            *)
+              bash -x ./build.sh ${app}
+              ;;
+          esac
 
-          # some app don't support all platforms
-          # for app in trivy mongosh
-          # do
-          #   bash ./build_${app}.sh
-          # done
+          # Versioning the new images
+          pushd ${app}
+          bash -x ./version-tag.sh
+          popd
 
-          # versioning the new images
-          for app in ${APPLICATIONS} trivy mongosh
-          do
-            bash -c "pushd ${app}; ./version-tag.sh; popd"
-          done
   scan:
     docker:
-      - image: alpine/trivy
+      - image: alpine/trivy:latest
     environment:
-      APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie mongosh ansible flake8 sqlite bruno asma
+      app: << parameters.app_name >>
+    parameters:
+      app_name:
+        type: string # Accept the app name as a parameter
     steps:
       - checkout
       - run: |
-          for app in ${APPLICATIONS}
-          do
-            echo "Scan image alpine/${app} ..."
-            #trivy image -s "HIGH,CRITICAL" alpine/${app}
-            trivy image --format table --exit-code 1 \
-               --ignore-unfixed --vuln-type os,library \
-               --scanners vuln --severity CRITICAL,HIGH \
-               --timeout 10m0s alpine/${app}
-            echo "==== End of Scan ===="
-          done
+          echo "Scanning image alpine/${app} ..."
+          trivy image --format table --exit-code 1 \
+             --ignore-unfixed --vuln-type os,library \
+             --scanners vuln --severity CRITICAL,HIGH \
+             --timeout 10m0s alpine/${app}
+          echo "==== End of Scan ===="
+
+reusejobs: &reusejobs
+      - build:
+          name: build_links
+          app_name: links
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_links
+          app_name: links
+          context: Docker-Hub
+          requires:
+            - build_links
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_lynx
+          app_name: lynx
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_lynx
+          app_name: lynx
+          context: Docker-Hub
+          requires:
+            - build_lynx
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_mysql
+          app_name: mysql
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_mysql
+          app_name: mysql
+          context: Docker-Hub
+          requires:
+            - build_mysql
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_psql
+          app_name: psql
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_psql
+          app_name: psql
+          context: Docker-Hub
+          requires:
+            - build_psql
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_curl
+          app_name: curl
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_curl
+          app_name: curl
+          context: Docker-Hub
+          requires:
+            - build_curl
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_socat
+          app_name: socat
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_socat
+          app_name: socat
+          context: Docker-Hub
+          requires:
+            - build_socat
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_httpie
+          app_name: httpie
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_httpie
+          app_name: httpie
+          context: Docker-Hub
+          requires:
+            - build_httpie
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_ansible
+          app_name: ansible
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_ansible
+          app_name: ansible
+          context: Docker-Hub
+          requires:
+            - build_ansible
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_flake8
+          app_name: flake8
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_flake8
+          app_name: flake8
+          context: Docker-Hub
+          requires:
+            - build_flake8
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_openssl
+          app_name: openssl
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_openssl
+          app_name: openssl
+          context: Docker-Hub
+          requires:
+            - build_openssl
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_sqlite
+          app_name: sqlite
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_sqlite
+          app_name: sqlite
+          context: Docker-Hub
+          requires:
+            - build_sqlite
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_bruno
+          app_name: bruno
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_bruno
+          app_name: bruno
+          context: Docker-Hub
+          requires:
+            - build_bruno
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
+          name: build_asma
+          app_name: asma
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_asma
+          app_name: asma
+          context: Docker-Hub
+          requires:
+            - build_asma
+          filters:
+            branches:
+              only:
+                - main
+                - master
 
 workflows:
-  build:
+  build_and_scan:
     jobs:
-      - build:
-          name: build
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
-      - scan:
-          requires:
-            - build
-          name: scan
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
+      *reusejobs
 
   nightly:
-    triggers:
-       - schedule:
-           cron: "0 3 * * 6"
-           filters:
-             branches:
-               only:
-                 - master
-                 - main
     jobs:
-      - build:
-          name: build
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
-
-      - scan:
-          requires:
-            - build
-          name: scan
-          context:
-            - Docker-Hub
+      *reusejobs
+    triggers:
+      - schedule:
+          cron: "0 3 * * 6" # Scheduled run every Saturday at 3 AM UTC
           filters:
             branches:
               only:
