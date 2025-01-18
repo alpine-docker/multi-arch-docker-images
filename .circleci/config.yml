@@ -32,7 +32,7 @@ jobs:
           echo $REBUILD
 
           # Build the application ${app} with the latest tag
-          case ${app_name} in
+          case ${app} in
             asma)
               bash ./build_asma.sh asma
               ;;

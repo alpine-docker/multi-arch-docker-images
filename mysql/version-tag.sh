@@ -6,11 +6,11 @@ source functions.sh
 image="alpine/mysql"
 
 # 15.1
-version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/mariadb/{print $3}')
+version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/mariadb/{print $5}')
 
 install_crane
 ./crane copy ${image} ${image}:${version}
 
-mariadb_version=$(docker run --rm ${image} --version |awk '$1=$1' | sed -n 's/.*Distrib \([0-9.]*\)-.*/\1/p')
+mariadb_version=$(docker run --rm ${image} --version |awk '$1=$1' | sed -n 's/.*from \([0-9.]*\)-.*/\1/p')
 ./crane copy ${image} alpine/mariadb:latest
 ./crane copy ${image} alpine/mariadb:${mariadb_version}
