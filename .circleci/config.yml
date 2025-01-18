@@ -309,26 +309,26 @@ reusejobs: &reusejobs
       #        only:
       #          - main
       #          - master
-      - build:
-          name: build_asma
-          app_name: asma
-          context: Docker-Hub
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - scan:
-          name: scan_asma
-          app_name: asma
-          context: Docker-Hub
-          requires:
-            - build_asma
-          filters:
-            branches:
-              only:
-                - main
-                - master
+      #- build:
+      #    name: build_asma
+      #    app_name: asma
+      #    context: Docker-Hub
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
+      #- scan:
+      #    name: scan_asma
+      #    app_name: asma
+      #    context: Docker-Hub
+      #    requires:
+      #      - build_asma
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
 
 workflows:
   build_and_scan:
