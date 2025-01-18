@@ -12,6 +12,8 @@ parameters:
   rebuild:
     type: string
     default: "false"
+  app_name:
+    type: string
 
 jobs:
   build:
@@ -19,7 +21,9 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno
+      #APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno
+    app_name: # Accept the app name as a parameter
+      type: string
     steps:
       - checkout
       - setup_remote_docker:
@@ -27,98 +31,189 @@ jobs:
       - run: |
           apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
-          # build the application with latest tag
-          for app in ${APPLICATIONS}
-          do
-            echo "### build ${app} ... ###"
-            bash ./build.sh ${app} 
-          done
 
-          echo "### build asma ... ###"
-          bash ./build_asma.sh asma
-
-          # some app don't support all platforms
-          # for app in trivy mongosh
-          # do
-          #   bash ./build_${app}.sh
-          # done
+          # build the application ${app_name} with latest tag
+          case ${app_name} in:
+            asma)
+              bash ./build_asma.sh asma
+              ;;
+            trivy)
+              bash ./build_${app_name}.sh
+              ;;
+            mongosh)
+              bash ./build_${app_name}.sh
+              ;;
+            *)
+              bash ./build.sh ${app_name}
+              ;;
+          esac           
 
           # versioning the new images
-          for app in ${APPLICATIONS} trivy mongosh
-          do
-            bash -c "pushd ${app}; ./version-tag.sh; popd"
-          done
+          bash -c "pushd ${app}; ./version-tag.sh; popd"
+
   scan:
     docker:
       - image: alpine/trivy
-    environment:
-      APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie mongosh ansible flake8 sqlite bruno asma
+    # environment:
+    #   APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie mongosh ansible flake8 sqlite bruno asma
+    parameters:
+      app_name: # Accept the app name as a parameter
+        type: string
     steps:
       - checkout
       - run: |
-          for app in ${APPLICATIONS}
-          do
-            echo "Scan image alpine/${app} ..."
-            #trivy image -s "HIGH,CRITICAL" alpine/${app}
-            trivy image --format table --exit-code 1 \
-               --ignore-unfixed --vuln-type os,library \
-               --scanners vuln --severity CRITICAL,HIGH \
-               --timeout 10m0s alpine/${app}
-            echo "==== End of Scan ===="
-          done
+          echo "Scan image alpine/${app_name} ..."
+          #trivy image -s "HIGH,CRITICAL" alpine/${app}
+          trivy image --format table --exit-code 1 \
+             --ignore-unfixed --vuln-type os,library \
+             --scanners vuln --severity CRITICAL,HIGH \
+             --timeout 10m0s alpine/${app_name}
+          echo "==== End of Scan ===="
 
 workflows:
   build:
-    jobs:
-      - build:
-          name: build
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
-      - scan:
-          requires:
-            - build
-          name: scan
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
-
-  nightly:
     triggers:
-       - schedule:
-           cron: "0 3 * * 6"
-           filters:
-             branches:
-               only:
-                 - master
-                 - main
+      - schedule:
+          cron: "0 3 * * 6"
+          filters:
+            branches:
+              only:
+                - master
+                - main
+      - push: # Trigger for code commits
+          filters:
+            branches:
+              only:
+                - master
+                - main
     jobs:
       - build:
-          name: build
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
-
+          name: build_links
+          app_name: links
+          context: Docker-Hub
       - scan:
+          name: scan_links
+          app_name: links
+          context: Docker-Hub
           requires:
-            - build
-          name: scan
-          context:
-            - Docker-Hub
-          filters:
-            branches:
-              only:
-                - master
-                - main
+            - build_links
+      - build:
+          name: build_lynx
+          app_name: lynx
+          context: Docker-Hub
+      - scan:
+          name: scan_lynx
+          app_name: lynx
+          context: Docker-Hub
+          requires:
+            - build_lynx
+      - build:
+          name: build_mysql
+          app_name: mysql
+          context: Docker-Hub
+      - scan:
+          name: scan_mysql
+          app_name: mysql
+          context: Docker-Hub
+          requires:
+            - build_mysql
+      - build:
+          name: build_psql
+          app_name: psql
+          context: Docker-Hub
+      - scan:
+          name: scan_psql
+          app_name: psql
+          context: Docker-Hub
+          requires:
+            - build_psql
+      - build:
+          name: build_curl
+          app_name: curl
+          context: Docker-Hub
+      - scan:
+          name: scan_curl
+          app_name: curl
+          context: Docker-Hub
+          requires:
+            - build_curl
+      - build:
+          name: build_socat
+          app_name: socat
+          context: Docker-Hub
+      - scan:
+          name: scan_socat
+          app_name: socat
+          context: Docker-Hub
+          requires:
+            - build_socat
+      - build:
+          name: build_httpie
+          app_name: httpie
+          context: Docker-Hub
+      - scan:
+          name: scan_httpie
+          app_name: httpie
+          context: Docker-Hub
+          requires:
+            - build_httpie
+      - build:
+          name: build_ansible
+          app_name: ansible
+          context: Docker-Hub
+      - scan:
+          name: scan_ansible
+          app_name: ansible
+          context: Docker-Hub
+          requires:
+            - build_ansible
+      - build:
+          name: build_flake8
+          app_name: flake8
+          context: Docker-Hub
+      - scan:
+          name: scan_flake8
+          app_name: flake8
+          context: Docker-Hub
+          requires:
+            - build_flake8
+      - build:
+          name: build_openssl
+          app_name: openssl
+          context: Docker-Hub
+      - scan:
+          name: scan_openssl
+          app_name: openssl
+          context: Docker-Hub
+          requires:
+            - build_openssl
+      - build:
+          name: build_sqlite
+          app_name: sqlite
+          context: Docker-Hub
+      - scan:
+          name: scan_sqlite
+          app_name: sqlite
+          context: Docker-Hub
+          requires:
+            - build_sqlite
+      - build:
+          name: build_bruno
+          app_name: bruno
+          context: Docker-Hub
+      - scan:
+          name: scan_bruno
+          app_name: bruno
+          context: Docker-Hub
+          requires:
+            - build_bruno
+      - build:
+          name: build_asma
+          app_name: asma
+          context: Docker-Hub
+      - scan:
+          name: scan_asma
+          app_name: asma
+          context: Docker-Hub
+          requires:
+            - build_asma
