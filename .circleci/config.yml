@@ -12,8 +12,6 @@ parameters:
   rebuild:
     type: string
     default: "false"
-  app_name:
-    type: string
 
 jobs:
   build:
@@ -21,9 +19,9 @@ jobs:
       - image: alpine/docker-with-buildx
     environment:
       REBUILD: << pipeline.parameters.rebuild >>
-      #APPLICATIONS: links lynx mysql psql curl socat httpie ansible flake8 openssl sqlite bruno
-    app_name: # Accept the app name as a parameter
-      type: string
+    parameters:
+      app_name:
+        type: string # Accept the app name as a parameter
     steps:
       - checkout
       - setup_remote_docker:
@@ -32,8 +30,8 @@ jobs:
           apk --no-cache --update add bash curl jq uuidgen
           echo $REBUILD
 
-          # build the application ${app_name} with latest tag
-          case ${app_name} in:
+          # Build the application ${app_name} with the latest tag
+          case ${app_name} in
             asma)
               bash ./build_asma.sh asma
               ;;
@@ -46,24 +44,21 @@ jobs:
             *)
               bash ./build.sh ${app_name}
               ;;
-          esac           
+          esac
 
-          # versioning the new images
-          bash -c "pushd ${app}; ./version-tag.sh; popd"
+          # Versioning the new images
+          bash -c "pushd ${app_name}; ./version-tag.sh; popd"
 
   scan:
     docker:
-      - image: alpine/trivy
-    # environment:
-    #   APPLICATIONS: links lynx mysql psql curl trivy semver socat httpie mongosh ansible flake8 sqlite bruno asma
+      - image: alpine/trivy:latest
     parameters:
-      app_name: # Accept the app name as a parameter
-        type: string
+      app_name:
+        type: string # Accept the app name as a parameter
     steps:
       - checkout
       - run: |
-          echo "Scan image alpine/${app_name} ..."
-          #trivy image -s "HIGH,CRITICAL" alpine/${app}
+          echo "Scanning image alpine/${app_name} ..."
           trivy image --format table --exit-code 1 \
              --ignore-unfixed --vuln-type os,library \
              --scanners vuln --severity CRITICAL,HIGH \
@@ -71,16 +66,11 @@ jobs:
           echo "==== End of Scan ===="
 
 workflows:
-  build:
+  version: 2
+  build_and_scan:
     triggers:
       - schedule:
-          cron: "0 3 * * 6"
-          filters:
-            branches:
-              only:
-                - master
-                - main
-      - push: # Trigger for code commits
+          cron: "0 3 * * 6" # Scheduled run every Saturday at 3 AM UTC
           filters:
             branches:
               only:
@@ -89,157 +79,131 @@ workflows:
     jobs:
       - build:
           name: build_links
-          parameters:
-            app_name: links
+          app_name: links
           context: Docker-Hub
       - scan:
           name: scan_links
-          parameters:
-            app_name: links
+          app_name: links
           context: Docker-Hub
           requires:
             - build_links
       - build:
           name: build_lynx
-          parameters:
-            app_name: lynx
+          app_name: lynx
           context: Docker-Hub
       - scan:
           name: scan_lynx
-          parameters:
-            app_name: lynx
+          app_name: lynx
           context: Docker-Hub
           requires:
             - build_lynx
       - build:
           name: build_mysql
-          parameters:
-            app_name: mysql
+          app_name: mysql
           context: Docker-Hub
       - scan:
           name: scan_mysql
-          parameters:
-            app_name: mysql
+          app_name: mysql
           context: Docker-Hub
           requires:
             - build_mysql
       - build:
           name: build_psql
-          parameters:
-            app_name: psql
+          app_name: psql
           context: Docker-Hub
       - scan:
           name: scan_psql
-          parameters:
-            app_name: psql
+          app_name: psql
           context: Docker-Hub
           requires:
             - build_psql
       - build:
           name: build_curl
-          parameters:
-            app_name: curl
+          app_name: curl
           context: Docker-Hub
       - scan:
           name: scan_curl
-          parameters:
-            app_name: curl
+          app_name: curl
           context: Docker-Hub
           requires:
             - build_curl
       - build:
           name: build_socat
-          parameters:
-            app_name: socat
+          app_name: socat
           context: Docker-Hub
       - scan:
           name: scan_socat
-          parameters:
-            app_name: socat
+          app_name: socat
           context: Docker-Hub
           requires:
             - build_socat
       - build:
           name: build_httpie
-          parameters:
-            app_name: httpie
+          app_name: httpie
           context: Docker-Hub
       - scan:
           name: scan_httpie
-          parameters:
-            app_name: httpie
+          app_name: httpie
           context: Docker-Hub
           requires:
             - build_httpie
       - build:
           name: build_ansible
-          parameters:
-            app_name: ansible
+          app_name: ansible
           context: Docker-Hub
       - scan:
           name: scan_ansible
-          parameters:
-            app_name: ansible
+          app_name: ansible
           context: Docker-Hub
           requires:
             - build_ansible
       - build:
           name: build_flake8
-          parameters:
-            app_name: flake8
+          app_name: flake8
           context: Docker-Hub
       - scan:
           name: scan_flake8
-          parameters:
-            app_name: flake8
+          app_name: flake8
           context: Docker-Hub
           requires:
             - build_flake8
       - build:
           name: build_openssl
-          parameters:
-            app_name: openssl
+          app_name: openssl
           context: Docker-Hub
       - scan:
           name: scan_openssl
-          parameters:
-            app_name: openssl
+          app_name: openssl
           context: Docker-Hub
           requires:
             - build_openssl
       - build:
           name: build_sqlite
-          parameters:
-            app_name: sqlite
+          app_name: sqlite
           context: Docker-Hub
       - scan:
           name: scan_sqlite
-          parameters:
-            app_name: sqlite
+          app_name: sqlite
           context: Docker-Hub
           requires:
             - build_sqlite
       - build:
           name: build_bruno
-          parameters:
-            app_name: bruno
+          app_name: bruno
           context: Docker-Hub
       - scan:
           name: scan_bruno
-          parameters:
-            app_name: bruno
+          app_name: bruno
           context: Docker-Hub
           requires:
             - build_bruno
       - build:
           name: build_asma
-          parameters:
-            app_name: asma
+          app_name: asma
           context: Docker-Hub
       - scan:
           name: scan_asma
-          parameters:
-            app_name: asma
+          app_name: asma
           context: Docker-Hub
           requires:
             - build_asma
