@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 # Prerequisite
 # Make sure you set secret enviroment variables in CI
 # DOCKER_USERNAME
