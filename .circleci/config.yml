@@ -48,7 +48,7 @@ jobs:
           esac
 
           # Versioning the new images
-          bash -c "pushd ${app}; bash -x ./version-tag.sh; popd"
+          bash -c "pushd ${app}; bash -e ./version-tag.sh; popd"
 
   scan:
     docker:
@@ -289,26 +289,26 @@ reusejobs: &reusejobs
               only:
                 - main
                 - master
-      - build:
-          name: build_bruno
-          app_name: bruno
-          context: Docker-Hub
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - scan:
-          name: scan_bruno
-          app_name: bruno
-          context: Docker-Hub
-          requires:
-            - build_bruno
-          filters:
-            branches:
-              only:
-                - main
-                - master
+      #- build:
+      #    name: build_bruno
+      #    app_name: bruno
+      #    context: Docker-Hub
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
+      #- scan:
+      #    name: scan_bruno
+      #    app_name: bruno
+      #    context: Docker-Hub
+      #    requires:
+      #      - build_bruno
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
       - build:
           name: build_asma
           app_name: asma
