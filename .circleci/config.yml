@@ -292,46 +292,46 @@ reusejobs: &reusejobs
               only:
                 - main
                 - master
-      - build:
-          name: build_semver
-          app_name: semver
-          context: Docker-Hub
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - scan:
-          name: scan_semver
-          app_name: semver
-          context: Docker-Hub
-          requires:
-            - build_semver
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - build:
-          name: build_mongosh
-          app_name: mongosh
-          context: Docker-Hub
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - scan:
-          name: scan_mongosh
-          app_name: mongosh
-          context: Docker-Hub
-          requires:
-            - build_mongosh
-          filters:
-            branches:
-              only:
-                - main
-                - master
+      #- build:
+      #    name: build_semver
+      #    app_name: semver
+      #    context: Docker-Hub
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
+      #- scan:
+      #    name: scan_semver
+      #    app_name: semver
+      #    context: Docker-Hub
+      #    requires:
+      #      - build_semver
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
+      #- build:
+      #    name: build_mongosh
+      #    app_name: mongosh
+      #    context: Docker-Hub
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
+      #- scan:
+      #    name: scan_mongosh
+      #    app_name: mongosh
+      #    context: Docker-Hub
+      #    requires:
+      #      - build_mongosh
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #          - master
       #- build:
       #    name: build_bruno
       #    app_name: bruno
