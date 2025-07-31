@@ -23,6 +23,7 @@
 * [ansible](https://www.ansible.com/) - an open-source automation tool that allows you to automate tasks, configuration management, and application deployment.
 * [sqlite](https://sqlite.org/) - a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine
 * [bruno](https://www.usebruno.com/) - Git-Friendly Opensource API client with collections version control
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/) - Kubernetes command-line tool for managing clusters
 
 ### Image details
 
@@ -42,6 +43,7 @@
 | [flake8](https://flake8.pycqa.org/en/latest/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/flake8| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/flake8/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 | [sqlite](https://sqlite.org/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/sqlite| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/sqlite/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 | [bruno](https://www.usebruno.com/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/bruno| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/bruno/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
+| [kubectl](https://kubernetes.io/docs/reference/kubectl/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/kubectl| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/kubectl/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 
 ### Usage
 

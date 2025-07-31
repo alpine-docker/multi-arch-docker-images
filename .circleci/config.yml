@@ -292,6 +292,26 @@ reusejobs: &reusejobs
               only:
                 - main
                 - master
+      - build:
+          name: build_kubectl
+          app_name: kubectl
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_kubectl
+          app_name: kubectl
+          context: Docker-Hub
+          requires:
+            - build_kubectl
+          filters:
+            branches:
+              only:
+                - main
+                - master
       #- build:
       #    name: build_semver
       #    app_name: semver
