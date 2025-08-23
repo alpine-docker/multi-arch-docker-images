@@ -76,5 +76,14 @@ IF-MIB::ifOperStatus.2 = INTEGER: up(1)
 IF-MIB::ifLastChange.1 = Timeticks: (123999999) 14 days, 8:26:39.99
 IF-MIB::ifLastChange.2 = Timeticks: (123999999) 14 days, 8:26:39.99
 IF-MIB::ifLastChange.2 = No more variables left in this MIB View (It is past the end of the MIB tree)
+
+$ snmpwalk -v2c -c public localhost:1161 1.3.6.1.2.1.1.1.0                                                                                                    [master]
+
+SNMPv2-MIB::sysDescr.0 = STRING: Linux zeus 4.8.6.5-smp #2 SMP Sun Nov 13 14:58:11 CDT 2016 i686
+
+$ snmpget -v3 -u simulator -n public -l authPriv -a MD5 -A auctoritas -x DES -X privatus localhost:1161 1.3.6.1.2.1.1.1.0                                     [master]
+
+SNMPv2-MIB::sysDescr.0 = STRING: Linux zeus 4.8.6.5-smp #2 SMP Sun Nov 13 14:58:11 CDT 2016 i686
+
 ```
 ![simulated device maps its OIDs to interfaces and system info](./image.png)
