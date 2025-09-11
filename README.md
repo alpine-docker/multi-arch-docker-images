@@ -24,7 +24,7 @@
 * [sqlite](https://sqlite.org/) - a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine
 * [bruno](https://www.usebruno.com/) - Git-Friendly Opensource API client with collections version control
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/) - Kubernetes command-line tool for managing clusters
-
+* [xml] - mix with xml, jq, xq tools
 ### Image details
 
 |                                                                                  Name                                                                                 | Github Repo and Code                                                | build logs                                                              | Docker image tags                                           | Multi-Arch                                                                     |
@@ -44,7 +44,7 @@
 | [sqlite](https://sqlite.org/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/sqlite| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/sqlite/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 | [bruno](https://www.usebruno.com/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/bruno| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/bruno/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 | [kubectl](https://kubernetes.io/docs/reference/kubectl/)                                                                                                    | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/kubectl| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/kubectl/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
-
+| [xml]() | https://github.com/alpine-docker/multi-arch-docker-images/tree/master/xml| https://app.circleci.com/pipelines/github/alpine-docker/multi-arch-docker-images | https://hub.docker.com/repository/docker/alpine/xml/tags | linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x |
 ### Usage
 
 There are simple usages in its application folders, but recommend to get help from application's offical documents.

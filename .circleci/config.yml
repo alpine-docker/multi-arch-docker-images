@@ -313,6 +313,26 @@ reusejobs: &reusejobs
                 - main
                 - master
       - build:
+          name: build_xml
+          app_name: xml
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_xml
+          app_name: xml
+          context: Docker-Hub
+          requires:
+            - build_xml
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - build:
           name: build_snmpsimulator
           app_name: snmpsimulator
           context: Docker-Hub
