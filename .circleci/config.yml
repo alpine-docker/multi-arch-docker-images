@@ -332,26 +332,26 @@ reusejobs: &reusejobs
               only:
                 - main
                 - master
-      - build:
-          name: build_snmpsimulator
-          app_name: snmpsimulator
-          context: Docker-Hub
-          filters:
-            branches:
-              only:
-                - main
-                - master
-      - scan:
-          name: scan_snmpsimulator
-          app_name: snmpsimulator
-          context: Docker-Hub
-          requires:
-            - build_snmpsimulator
-          filters:
-            branches:
-              only:
-                - main
-                - master
+      # - build:
+      #     name: build_snmpsimulator
+      #     app_name: snmpsimulator
+      #     context: Docker-Hub
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - master
+      # - scan:
+      #     name: scan_snmpsimulator
+      #     app_name: snmpsimulator
+      #     context: Docker-Hub
+      #     requires:
+      #       - build_snmpsimulator
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - master
       #- build:
       #    name: build_semver
       #    app_name: semver
