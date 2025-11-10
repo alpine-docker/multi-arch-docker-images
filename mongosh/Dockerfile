@@ -1,6 +1,8 @@
-FROM node:lts-alpine
+FROM frolvlad/alpine-glibc
 
-RUN apk add --update --no-cache mongodb-tools git bash
-RUN yarn global add mongosh
+ARG MONGOSH_VERSION=2.5.9
 
-ENTRYPOINT []
+RUN apk add --no-cache mongodb-tools curl tar libgcc bash && \
+    rm -rf /var/cache/apk/*
+RUN curl -L https://github.com/mongodb-js/mongosh/releases/download/v${MONGOSH_VERSION}/mongosh-${MONGOSH_VERSION}-linux-x64.tgz \
+    | tar -xz --strip-components=2 -C /usr/local/bin --wildcards '*/bin/*'
