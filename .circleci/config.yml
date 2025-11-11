@@ -34,7 +34,7 @@ jobs:
           # Build the application ${app} with the latest tag
           case ${app} in
             asma)
-              bash ./build_asma.sh asma
+              bash ./build.sh ${app} "linux/amd64,linux/arm64" "aws/aws-secretsmanager-agent"
               ;;
             semver)
               bash ./build.sh ${app} "linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/s390x"
@@ -43,7 +43,7 @@ jobs:
               bash ./build.sh ${app} "linux/386,linux/amd64,linux/arm64,linux/ppc64le,linux/s390x"
               ;;
             mongosh)
-              bash ./build.sh ${app} "linux/arm64,linux/amd64"
+              bash ./build.sh ${app} "linux/arm64,linux/amd64" "mongodb-js/mongosh"
               ;;
             *)
               bash ./build.sh ${app}
