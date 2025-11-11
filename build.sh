@@ -9,7 +9,7 @@ set -e
 
 # usage
 Usage() {
-  echo "Usage: $0 <image_name> [<platform>] [<github_repo_for_latest_tag_version_lookup>]"
+  echo "Usage: $0 <image_name> [<platform>] [<github_repo_for_latest_release_version_lookup>]"
   echo
   echo "Examples:"
   echo "  $0 myapp \"linux/amd64,linux/arm64\" \"mongodb-js/mongosh\""
