@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add --update --no-cache curl
+RUN apk add --update --no-cache curl envsubst
 
 # Install kubectl
 RUN ARCH=$(uname -m) && \
