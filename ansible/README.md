@@ -26,8 +26,8 @@ ansible <follow command>
 or
 
 ```
-alias ansible-playbook=" docker run -ti --rm -v ~/.ssh:/root/.ssh -v ~/.aws:/root/.aws -v $(pwd):/apps -w /apps alpine/ansible ansible-playbook"
-ansible-playbook -i inventory < follow command>
+alias ansible-playbook="docker run -ti --rm -v ~/.ssh:/root/.ssh -v ~/.aws:/root/.aws -v $(pwd):/apps -w /apps alpine/ansible ansible-playbook"
+ansible-playbook -i inventory <follow command>
 ```
 
 ### Build and test
