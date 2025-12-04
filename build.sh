@@ -9,7 +9,10 @@ set -e
 
 # usage
 Usage() {
-  echo "$0 <image_name>"
+  echo "Usage: $0 <image_name> [<platform>] [<github_repo_for_latest_release_version_lookup>]"
+  echo
+  echo "Examples:"
+  echo "  $0 myapp \"linux/amd64,linux/arm64\" \"mongodb-js/mongosh\""
 }
 
 if [ $# -eq 0 ]; then
@@ -24,7 +27,7 @@ platform="${2:-linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64l
 curl -H "Cache-Control: no-cache" -sL "https://raw.githubusercontent.com/alpine-docker/multi-arch-docker-images/stable/functions.sh" -o functions.sh
 source functions.sh
 
-tag="latest"
+tag=$( [ -n "$3" ] && get_latest_release "$3" || echo latest )
 build_arg="VERSION=${tag}"
 
 echo "Building image for tag: ${tag}"
