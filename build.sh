@@ -28,4 +28,12 @@ tag="latest"
 build_arg="VERSION=${tag}"
 
 echo "Building image for tag: ${tag}"
-build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
+if [ "${image}" == "alpine/openclaw" ]; then
+  rm -rf temp
+  git clone https://github.com/openclaw/openclaw.git temp
+  pushd temp
+  build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
+  popd
+else
+  build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
+fi
