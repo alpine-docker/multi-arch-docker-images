@@ -433,6 +433,25 @@ reusejobs: &reusejobs
       #          - main
       #          - master
 
+      - build:
+          name: build_openclaw
+          app_name: openclaw
+          context: Docker-Hub
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - scan:
+          name: scan_openclaw
+          app_name: openclaw
+          context: Docker-Hub
+          requires:
+            - build_openclaw
+          filters:
+            branches:
+              only:
+
 workflows:
   build_and_scan:
     jobs:
