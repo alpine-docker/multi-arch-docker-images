@@ -30,6 +30,7 @@ build_arg="VERSION=${tag}"
 echo "Building image for tag: ${tag}"
 if [ "${image}" == "alpine/openclaw" ]; then
   rm -rf temp
+  apk add git
   git clone https://github.com/openclaw/openclaw.git temp
   pushd temp
   build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
