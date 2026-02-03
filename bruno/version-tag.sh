@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/bruno"
 
+docker images
+docker pull $image
+docker images
+
 # 1.16.0
 version=$(docker run --rm ${image} --version |awk '$1=$1' | sed 's/\r//g')
 

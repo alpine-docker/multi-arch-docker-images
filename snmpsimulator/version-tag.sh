@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/snmpsimulator"
 
+docker images
+docker pull $image
+docker images
+
 # snmpsimd --version
 # SNMP Simulator version 1.1.7, written by Ilya Etingof <etingof@gmail.com> Using foundation libraries: pysmi 1.6.2, pysnmp 6.2.6, pyasn1 0.6.1. Python interpreter: 3.12.11 (main, Aug 13 2025,
 # 10:45:18) [GCC 14.2.0] Documentation and support at https://www.pysnmp.com/snmpsim

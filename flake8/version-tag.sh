@@ -5,6 +5,11 @@ source functions.sh
 
 image="alpine/flake8"
 
+docker images
+docker pull $image
+docker images
+
+
 # 15.1
 version=$(docker run --rm ${image} --version|head -1|awk '$1=$1' | awk '/flake8/{print $1}')
 

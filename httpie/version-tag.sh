@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/httpie"
 
+docker images
+docker pull $image
+docker images
+
 # 3.2.2
 version=$(docker run --rm ${image} --version |awk '$1=$1' | sed 's/\r//g')
 

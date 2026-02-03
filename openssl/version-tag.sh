@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/openssl"
 
+docker images
+docker pull $image
+docker images
+
 # 1.1.1g
 version=$(docker run --rm ${image} version |awk '$1=$1' |awk '/OpenSSL/{print $2}')
 

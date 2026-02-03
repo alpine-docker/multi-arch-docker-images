@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/mongosh"
 
+docker images
+docker pull $image
+docker images
+
 # 1.10.1
 version=$(docker run --rm ${image} mongosh --version | sed 's/\r//g')
 

@@ -78,7 +78,7 @@ function install_crane() {
   esac
 
   # install crane
-  curl -L https://github.com/google/go-containerregistry/releases/download/v0.11.0/${file} |tar zx -C /tmp
+  curl -L https://github.com/google/go-containerregistry/releases/download/v0.20.7/${file} |tar zx -C /tmp
   mv /tmp/crane .
   chmod +x crane
 }

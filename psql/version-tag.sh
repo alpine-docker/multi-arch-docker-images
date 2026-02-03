@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/psql"
 
+docker images
+docker pull $image
+docker images
+
 # 15.1
 version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/psql/{print $3}'|sed 's/\r//g')
 

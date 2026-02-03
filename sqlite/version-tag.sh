@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/sqlite"
 
+docker images
+docker pull $image
+docker images
+
 # 3.41.2
 version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '{print $1}')
 

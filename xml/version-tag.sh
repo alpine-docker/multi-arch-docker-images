@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/xml"
 
+docker images
+docker pull $image
+docker images
+
 # jq --version
 # jq-1.8.0
 version=$(docker run --rm ${image} jq --version |awk '$1=$1' |awk -F "-" '{print $NF}')

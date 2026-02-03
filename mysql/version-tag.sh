@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/mysql"
 
+docker images
+docker pull $image
+docker images
+
 # 15.1
 version=$(docker run --rm ${image} --version |awk '$1=$1' |awk '/mariadb/{print $5}')
 

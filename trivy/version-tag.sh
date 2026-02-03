@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/trivy"
 
+docker images
+docker pull $image
+docker images
+
 # 0.43.0
 version=$(docker run --rm ${image} -v |awk '/Version/{print $2}' |sed 's/\r//g')
 

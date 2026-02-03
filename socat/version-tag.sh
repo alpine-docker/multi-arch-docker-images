@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/socat"
 
+docker images
+docker pull $image
+docker images
+
 # 1.7.4.4
 version=$(docker run -t --rm ${image} -V|awk '$1=$1' |awk '/socat version/{print $3}')
 

@@ -454,6 +454,8 @@ reusejobs: &reusejobs
           filters:
             branches:
               only:
+                - main
+                - master
 
 workflows:
   build_and_scan:

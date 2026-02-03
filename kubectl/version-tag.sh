@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/kubectl"
 
+docker images
+docker pull $image
+docker images
+
 # 1.33.3
 version=$(docker run --rm ${image} version --client --output=json | jq -r '.clientVersion.gitVersion' | sed 's/^v//')
 echo $version

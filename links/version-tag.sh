@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/links"
 
+docker images
+docker pull $image
+docker images
+
 # 2.29
 version=$(docker run --rm ${image} -version |awk '/Links/{print $2}'|sed 's/\r//g')
 echo $version

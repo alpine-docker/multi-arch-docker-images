@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/curl"
 
+docker images
+docker pull $image
+docker images
+
 # 8.1.2
 version=$(docker run --rm ${image} curl --version |awk '$1=$1'|awk '/curl/ {print $2}')
 

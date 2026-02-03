@@ -5,6 +5,10 @@ source functions.sh
 
 image="alpine/semver"
 
+docker images
+docker pull $image
+docker images
+
 # 7.5.3
 version=$(docker run -i --rm ${image}|head -1 |awk '{print $NF}')
 
