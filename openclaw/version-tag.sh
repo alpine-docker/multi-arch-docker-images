@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 curl -H "Cache-Control: no-cache" -sL "https://raw.githubusercontent.com/alpine-docker/multi-arch-docker-images/stable/functions.sh" -o functions.sh
 source functions.sh
 
