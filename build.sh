@@ -29,10 +29,9 @@ build_arg="VERSION=${tag}"
 
 echo "Building image for tag: ${tag}"
 if [ "${image}" == "alpine/openclaw" ]; then
-  rm -rf temp
-  apk add git
-  git clone https://github.com/openclaw/openclaw.git temp
-  pushd temp
+  latest=$(get_latest_release openclaw/openclaw)
+  curl -L https://github.com/openclaw/openclaw/archive/refs/tags/v${latest}.tar.gz | tar -xz
+  pushd openclaw-*
   build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
   popd
 else
