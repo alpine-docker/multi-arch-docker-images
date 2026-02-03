@@ -7,6 +7,7 @@ image="alpine/openclaw"
 
 # 2026.1.29
 version=$(docker run --rm ${image} /app/openclaw.mjs --version)
+echo $version
 
 install_crane
 ./crane copy ${image} ${image}:${version}

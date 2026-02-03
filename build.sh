@@ -30,6 +30,7 @@ build_arg="VERSION=${tag}"
 echo "Building image for tag: ${tag}"
 if [ "${image}" == "alpine/openclaw" ]; then
   latest=$(get_latest_release openclaw/openclaw)
+  echo $latest
   curl -L https://github.com/openclaw/openclaw/archive/refs/tags/v${latest}.tar.gz | tar -xz
   pushd openclaw-*
   build_docker_image "${tag}" "${image}" "${platform}" "${build_arg}"
