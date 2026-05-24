@@ -17,5 +17,7 @@ https://hub.docker.com/repository/docker/alpine/psql/tags
 ```
 alias psql="docker run -ti --rm alpine/psql"
 
-psql -d <db-name> -U <username> -W
+psql -h <host> -d <db-name> -U <username> -W
 ```
+
+This image uses the system root certificate store by default (`PGSSLROOTCERT=system`), so SSL connections with `sslmode=verify-full` can validate server certificates without requiring a local `/root/.postgresql/root.crt` file.
