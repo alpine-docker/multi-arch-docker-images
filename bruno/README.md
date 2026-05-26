@@ -8,9 +8,10 @@ Auto-trigger docker build for [bruno cli](https://github.com/usebruno/bruno) whe
 
 [![DockerHub Badge](http://dockeri.co/image/alpine/bruno)](https://hub.docker.com/r/alpine/bruno/)
 
-### Github Repo
+### Repository
 
-https://github.com/alpine-docker/multi-arch-docker-images/tree/master/bruno
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/bruno/Dockerfile
 
 ### Daily CI build logs
 

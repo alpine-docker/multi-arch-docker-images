@@ -2,8 +2,9 @@
 
 Docker image with [Semantic Versioning 2.0.0](https://semver.org/)
 
-### Github Repo
+### Repository
 
+The source for this image is available on GitHub:
 https://github.com/alpine-docker/multi-arch-docker-images/blob/master/semver/Dockerfile
 
 ### Docker image tags

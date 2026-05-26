@@ -1,8 +1,9 @@
 # xml parser
 
-### Github Repo
+### Repository
 
-https://github.com/alpine-docker/multi-arch-docker-images/xml
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/xml/Dockerfile
 
 ### Daily Travis CI build logs
 

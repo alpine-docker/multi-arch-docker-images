@@ -6,6 +6,11 @@ Alpine-based image with kubectl
 
 This image provides a minimal Alpine Linux container with kubectl installed, supporting multiple architectures.
 
+## Repository
+
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/kubectl/Dockerfile
+
 ## Usage
 
 * with `docker run`

@@ -8,6 +8,11 @@ NOTES: the original upstream https://github.com/appropriate/docker-curl is in re
 
 This repo will manage with latest alpine version, and passed trivy scan.
 
+## Repository
+
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/curl/Dockerfile
+
 ## Usage
 
 * with `docker run`

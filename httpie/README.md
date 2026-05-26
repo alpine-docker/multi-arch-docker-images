@@ -16,9 +16,10 @@ This feature was added on June 25th, 2023.
 - I only provide support for the `linux/amd64` platform since I don't have an environment to test other platforms. If you encounter any issues with other architectures, please submit a pull request to address them.
 - There will be no difference when using the docker pull and docker run commands with other architectures; you can use them as you normally would. For instance, if you need to pull an image for the ARM architecture (such as the new Mac M1 chip), you can run `docker pull alpine/httpie:3.2.2` to directly obtain the image.
 
-### Github Repo
+### Repository
 
-https://github.com/alpine-docker/multi-arch-docker-images/tree/master/httpie
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/httpie/Dockerfile
 
 ### Daily CI build logs
 

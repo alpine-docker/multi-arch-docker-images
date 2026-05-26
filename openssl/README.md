@@ -4,9 +4,10 @@ A useful simple openssl container running in alpine Linux
 
 [![DockerHub Badge](http://dockeri.co/image/alpine/openssl)](https://hub.docker.com/r/alpine/openssl/)
 
-### Github Repo
+### Repository
 
-https://github.com/alpine-docker/multi-arch-docker-images/blob/master/openssl
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/openssl/Dockerfile
 
 ### CI build logs
 
