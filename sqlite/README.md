@@ -1,7 +1,8 @@
 sqlite
 
-### source of `Dockerfile`
+### Repository
 
+The source for this image is available on GitHub:
 https://github.com/alpine-docker/multi-arch-docker-images/blob/master/sqlite/Dockerfile
 
 ### Daily CI build logs
@@ -10,7 +11,7 @@ N/A
 
 ### Docker image tags
 
-https://hub.docker.com/repository/docker/alpine/mysql/tags
+https://hub.docker.com/repository/docker/alpine/sqlite/tags
 
 ### quick start
 

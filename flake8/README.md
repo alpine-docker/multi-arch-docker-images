@@ -4,8 +4,9 @@ Auto-trigger docker build for [flake8](http://flake8.pycqa.org/) when new releas
 
 Multi-arch supported (linux/arm/v7,linux/arm64/v8,linux/arm/v6,linux/amd64,linux/ppc64le,linux/s390x)
 
-### Repo:
+### Repository
 
+The source for this image is available on GitHub:
 https://github.com/alpine-docker/multi-arch-docker-images/blob/master/flake8/Dockerfile
 
 ### Daily build logs:

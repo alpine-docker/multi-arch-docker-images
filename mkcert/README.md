@@ -1,7 +1,8 @@
 mkcert - A simple zero-config tool to make locally trusted development certificates with any names you'd like.
 
-### source of `Dockerfile`
+### Repository
 
+The source for this image is available on GitHub:
 https://github.com/alpine-docker/multi-arch-docker-images/blob/master/mkcert/Dockerfile
 
 ### Daily CI build logs

@@ -12,9 +12,10 @@ Weekly auto-trigger docker build for [socat](https://pkgs.alpinelinux.org/packag
 
 <img width="1188" alt="image" src="https://user-images.githubusercontent.com/8954908/162615860-c8ddce4d-d6bf-423c-adb3-e23a358b77d9.png">
 
-### Repo:
+### Repository
 
-https://github.com/alpine-docker/multi-arch-docker-images/tree/master/socat
+The source for this image is available on GitHub:
+https://github.com/alpine-docker/multi-arch-docker-images/blob/master/socat/Dockerfile
 
 ### scheduled build logs:
 

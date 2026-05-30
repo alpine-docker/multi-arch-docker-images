@@ -1,7 +1,8 @@
 mongosh — The Mongo Command-Line Client
 
-### source of `Dockerfile`
+### Repository
 
+The source for this image is available on GitHub:
 https://github.com/alpine-docker/multi-arch-docker-images/blob/master/mongosh/Dockerfile
 
 ### Daily CI build logs
